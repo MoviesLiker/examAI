@@ -1,5 +1,5 @@
-from text_reader import read_text_file
-from text_extract import extract_text_from_pdf
+# from text_reader import read_text_file
+# from text_extract import extract_text_from_pdf
 
 from transformers import pipeline
 
@@ -11,24 +11,37 @@ question_answerer = pipeline("question-answering", model='distilbert-base-cased-
 from typing import Union
 
 from fastapi import FastAPI
+from pydantic import BaseModel
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
+origins = ["*"]
 
-@app.get("/")
-def read_root(type,max=None,min=None,question=None):
-    pdf_path = 'input.pdf'#input('Enter pdf file path: ')
-    
-    text = extract_text_from_pdf(pdf_path, pages=[1])
-    # type = int(input('Choose one:-\n 1 = summarization \n 2 = qna\n: '))
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-    if type == '1':
-        # max = int(input('Enter Maximum length: '))
-        # min = int(input('Enter minimum length: '))
-        result = summarizer(text, max_length=int(max), min_length=int(min), do_sample=True)
-        return result
-    
-    if type == '2':
-        # question = input('Aks you question:\n ')
-        result = question_answerer(question=question, context=text)
-        return result
+class SummarizerItems(BaseModel):
+    text: str
+    maximum: int
+    minimum: int
+
+class QnaItems(BaseModel):
+    text: str
+    question: str
+
+@app.post("/summarizer")
+def summary(item: SummarizerItems):
+    text = item.text
+    result = summarizer(text, max_length=item.maximum, min_length=item.minimum, do_sample=True)
+    return result
+
+@app.post("/qna")
+def qns(item: QnaItems):
+    result = question_answerer(question=item.question, context=item.text)
+    return result
