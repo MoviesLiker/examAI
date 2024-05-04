@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { Bounce, Dots } from "react-activity";
 import { Button, Card, Col, Row, Spinner } from "react-bootstrap";
 import { toast } from "react-toastify";
+import { config } from "../Config";
 
 const TextSummarizer = () => {
   const [formData, setFormData] = useState({});
@@ -71,7 +72,7 @@ const TextSummarizer = () => {
     // }
 
     await axios
-      .post("http://localhost:8000/summarizer/", formData)
+      .post(`${config.apiUrl}/summarizer/`, formData)
       .then(function (response) {
         setOutput(response.data);
       })
@@ -91,8 +92,8 @@ const TextSummarizer = () => {
   };
   return (
     <>
-      <h4 className="text-center">Summarizer</h4>
-      <hr />
+      {/* <h4 className="text-center">Summarizer</h4>
+      <hr /> */}
       <Row>
         <Col xs={12} md={6} className="text-center mb-3">
           {/* <Card className='card-green'>
@@ -100,7 +101,7 @@ const TextSummarizer = () => {
           <form onSubmit={handleSubmit}>
             <textarea
               className="form-control mb-3"
-              rows="10"
+              rows="12"
               placeholder="Enter your text"
               name="text"
               onChange={(e) => {

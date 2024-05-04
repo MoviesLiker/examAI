@@ -151,12 +151,12 @@ footer {
 
 .chat-area {
   border: 1px solid #010610;
-  height: 350px;
+  height: 380px;
   /* max-height: 500px; */
   border-radius: 5px;
   overflow-y: scroll;
   padding: 5px;
-  padding-bottom: 100px;
+  /* padding-bottom: 100px; */
 }
 
 ::-webkit-scrollbar-track {
@@ -246,4 +246,37 @@ footer {
   .chat-area {
     padding-bottom: 0px;
   }
+
+  .yali-area {
+    padding: 0px;
+  }
+}
+
+.yali-area {
+  height: 440px;
+  /* max-height: 500px; */
+  border-radius: 5px;
+  overflow-y: scroll;
+  padding: 0px 50px;
+  /* padding-bottom: 100px; */
+  zoom: 90%
+}
+
+.yali-question {
+  background-color: #010610;
+  color: #fff;
+  border-radius: 10px;
+  margin: 10px 0px;
+  padding: 10px;
+}
+
+.yali-qna-container {
+  margin-bottom: 50px;
+}
+
+.yali-answer {
+  border: 1px solid #010610;
+  border-radius: 10px;
+  margin: 10px 0px;
+  padding: 10px;
 }

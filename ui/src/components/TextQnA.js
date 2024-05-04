@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Bounce, Dots } from "react-activity";
 import { Button, Card, Col, Row } from "react-bootstrap";
 import { toast } from "react-toastify";
+import { config } from "../Config";
 
 const TextQnA = () => {
   const [formData, setFormData] = useState({ text: "", question: "" });
@@ -41,7 +42,7 @@ const TextQnA = () => {
     // }
 
     await axios
-      .post("http://184.95.51.183:8000/qna/", formData)
+      .post(`${config.apiUrl}/qna/`, formData)
       .then(function (response) {
         setOutput(response.data.answer);
         const chatData = [formData.question, response.data.answer];
@@ -71,15 +72,19 @@ const TextQnA = () => {
     toast.success("Copied!", toastConfig);
   };
 
+  useEffect(() => {
+    scrollToBottom();
+  }, [isProcess]);
+
   return (
     <>
-      <h4 className="text-center">Q&A Chat</h4>
-      <hr />
+      {/* <h4 className="text-center">Q&A Chat</h4>
+      <hr /> */}
       <Row>
         <Col xs={12} md={4} className="text-center mb-3">
           <textarea
             className="form-control mb-3"
-            rows="15"
+            rows="17"
             placeholder="Enter your text"
             name="text"
             value={formData.text}
