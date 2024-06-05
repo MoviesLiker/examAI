@@ -45,7 +45,7 @@ const Yali = () => {
         formData,
         {
           headers: {
-            Authorization: "Bearer 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",
+            Authorization: "Bearer API_KEY",
           },
         }
       )
