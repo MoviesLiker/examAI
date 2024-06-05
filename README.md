@@ -20,8 +20,7 @@ The Exam Preparation AI is an innovative platform designed to assist students in
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/MoviesLiker/examAI.git
-   ```
+   git clone https://github.com/anand-ragothaman/examAI)/examAI.git
 
 2. Navigate to the project directory:
 
